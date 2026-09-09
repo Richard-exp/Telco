@@ -9,7 +9,7 @@
 # Gateway Telemetry Shipper (Training Project)
 
 ## 1. Implemented Architecture
-*   *Current State: Naive implementation. In-memory data structures, blocking network I/O. No fault tolerance.*
+*   *Current State: Initial naive C++ daemon implemented. It accepts line-delimited telemetry over TCP, stores records in an in-memory append-only buffer, and forwards them to an OSS TCP endpoint with blocking I/O and reconnect backoff.*
 
 ---
 
@@ -30,4 +30,7 @@
 ---
 
 ## 3. General Backlog (To-Do)
+*   *(Empty for now. Awaiting next JIT specification.)*
+
+## 4. General Backlog (Completed)
 *   *Setup initial naive C++ daemon (Accepts telemetry, sends over TCP).*
