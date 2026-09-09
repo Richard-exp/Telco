@@ -1,0 +1,3 @@
+/home/runner/work/Telco/Telco/build/CMakeFiles/gateway_daemon.dir
+/home/runner/work/Telco/Telco/build/CMakeFiles/edit_cache.dir
+/home/runner/work/Telco/Telco/build/CMakeFiles/rebuild_cache.dir

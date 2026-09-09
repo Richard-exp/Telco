@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include <algorithm>
+#include <atomic>
 #include <chrono>
 #include <condition_variable>
 #include <csignal>
@@ -242,7 +244,7 @@ int main(int argc, char** argv) {
     std::thread sender([&] {
         int oss_sock = -1;
         auto backoff = std::chrono::milliseconds(100);
-        const auto max_backoff = std::chrono::seconds(5);
+        const auto max_backoff = std::chrono::milliseconds(5000);
 
         while (g_running) {
             if (oss_sock < 0) {
