@@ -1,33 +1,31 @@
-> **🛑 META-PROMPT FOR AI (NOTEBOOKLM - THE CHAOS ENGINEER & TEACHER):** 
-> You are the Chaos Engineer. Your goal is to train the User in DDIA concepts (e.g., split-brain, network partitions, backpressure, LSM-trees).
-> **Your Workflow:**
-> 1. Read the "Incident & Test Tracker" below. 
-> 2. If the last Incident is marked as "✅ PASSED" (meaning the Copilot successfully tested the User's solution), your job is to GENERATE A NEW INCIDENT.
-> 3. Invent a physical, telecom-specific failure (e.g., "The Gateway loses connection to the OSS server for 5 minutes, but telemetry keeps arriving from the satellite at 10MB/s"). 
-> 4. DO NOT provide the solution. Let the User write the Spec to fix it.
+> **🛑 META-PROMPT FOR AI (NOTEBOOKLM - THE ARCHITECT):** 
+> You are the System Architect. Your goal is to guide the user in building a resilient distributed edge telemetry node.
+> Read the "Task Tracker" and the "System Constraints". If the active task is completed, generate the NEXT architectural specification. 
+> Base your decisions on distributed systems principles (handling network partitions, state synchronization, resource limits). Do not write the C++ code yourself. Provide clear, constraint-based specifications for the Developer to implement.
 
-# Gateway Telemetry Shipper (Training Project)
+# Mobile Edge Telemetry Node
 
-## 1. Implemented Architecture
-*   *Current State: Naive implementation. In-memory data structures, blocking network I/O. No fault tolerance.*
+## 1. Project Essence & System Constraints
+A C++ edge daemon processing real-time telemetry from a mobile device. 
+*   **Development Environment:** GitHub Codespaces (Linux/x86_64).
+*   **Target Execution Environment:** Android smartphone (Xiaomi 11T) running via Termux (ARM64). The codebase must be compatible with cross-compilation for this environment.
+*   **Network Quality:** Highly unstable. The node frequently moves through dead zones, experiencing unpredictable latency, connection drops, and bandwidth throttling.
+*   **Core Function:** It must buffer telemetry locally without draining the battery or burning out the flash storage, and reliably sync this state to a central server when the connection stabilizes.
 
----
+## 2. Implemented Architecture
+*   *Setup phase. Blank slate.*
 
-## 2. Incident & Test Tracker (The Gradebook)
-*(NotebookLM generates the Incidents. User writes the Specs. Copilot writes the Tests and updates the Status).*
+## 3. Current Project Status
+*   *Repository initialized in Codespaces. Waiting for the first ingestion module.*
 
-### 🔴 ACTIVE INCIDENT
-*   **Incident 01 (By NotebookLM):** The network link to the OSS Server drops completely. Telemetry from the LEO satellite continues to arrive at the Gateway at 10,000 metrics per second. 
-*   **User Spec (The Architect's Fix):** 
-    *   *Waiting for User to write the specification based on DDIA principles...*
-*   **Chaos Test & Status:** 
-    *   *Status:* 🚧 PENDING
-    *   *Test Requirement:* Copilot must write a mock that simulates network drop and injects 50,000 metrics, asserting that no metrics are lost and memory does not infinitely balloon.
+## 4. Task Tracker & Specs
 
-### ✅ RESOLVED INCIDENTS
-*   *(Empty. Project just started).*
+### 📦 TO-DO (Active Specs)
+*   **Spec 1: Base Telemetry Ingestion**
+    *   Implement a C++ receiver (UDP or TCP) that accepts telemetry payloads containing: `device_id`, `timestamp`, `gps_lat`, `gps_lon`, `ping_ms`.
+    *   Parse the incoming data and store it in a basic in-memory structure.
+    *   Print a summary of ingested metrics to stdout.
+    *   Write a basic unit test verifying the payload parsing.
 
----
-
-## 3. General Backlog (To-Do)
-*   *Setup initial naive C++ daemon (Accepts telemetry, sends over TCP).*
+### ✅ COMPLETED
+*   *None.*
