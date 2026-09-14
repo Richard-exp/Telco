@@ -13,30 +13,19 @@ A C++ edge daemon processing real-time telemetry from a mobile device.
 *   **Core Function:** It must buffer telemetry locally without draining the battery or burning out the flash storage, and reliably sync this state to a central server when the connection stabilizes.
 
 ## 2. Implemented Architecture
-*   *Setup phase. Blank slate.*
+*   `TelemetryPayload` provides a fixed-storage, heap-free domain model for raw
+    telemetry, with separate event and processing (ingest) timestamps.
+*   CMake supports standard Linux builds and documents Android ARM64/Termux
+    cross-compilation.
 
 ## 3. Current Project Status
-*   *Repository initialized in Codespaces. Waiting for the first ingestion module.*
+*   Core telemetry domain model and time semantics are implemented and tested.
 
 ## 4. Task Tracker & Specs
 
 ### 📦 TO-DO (Active Specs)
 
-* **Spec 1: Core Domain Model, Time Semantics & ARM64 Build**
-
-* **Context:** Before opening network sockets or parsing data, we need a memory-safe data foundation that strictly respects DDIA Time Semantics and compiles for our Edge device.
-
-* **Implementation:**
-* Create a C++ struct/class `TelemetryPayload` representing the raw data: `device_id`, `event_timestamp_ms` (when the event occurred on the sensor), `gps_lat`, `gps_lon`, `ping_ms`.
-* Add a separate field `ingest_timestamp_ms`. This must be populated by the system exactly when the struct is instantiated (Processing Time), cleanly separating it from `event_timestamp_ms`.
-
-* **Constraints:**
-* **Zero-Allocation Focus:** Avoid dynamic heap allocations for the payload. Do not use dynamically allocating `std::string` for `device_id`; use fixed-size `std::array` or `char` buffers to prepare the ground for zero-copy parsing.
-* **Build System:** Create a `CMakeLists.txt`. It must build under standard Linux (x86_64) but include explicit comments/flags demonstrating readiness for ARM64 (Termux) cross-compilation.
-
-* **Testing:**
-* Integrate a lightweight testing framework (e.g., GoogleTest or Catch2).
-* Write a unit test verifying the time semantics: ensure `event_timestamp_ms` is preserved exactly as input, and `ingest_timestamp_ms` is generated correctly.
+*   *No active specs.*
 
 ### ✅ COMPLETED
-*   *None.*
+* **Spec 1: Core Domain Model, Time Semantics & ARM64 Build**
